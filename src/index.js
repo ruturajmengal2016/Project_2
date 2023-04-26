@@ -9,11 +9,13 @@ import {
   Route,
   RouterProvider
 } from "react-router-dom";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route path="/" element={<h1>Home</h1>} /> 
-    <Route path="/login" element={<h1>Sign In</h1>}/> 
+    <Route path="/login" element={<LoginPage/>}/> 
     <Route /> 
     <Route /> 
   </Route>
