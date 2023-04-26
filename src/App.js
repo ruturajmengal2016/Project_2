@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Footer from "./Pages/Footer";
+import Footer from "./Pages/Footer/Footer";
 import Style from './App.module.scss'
 function App() {
   return (

@@ -3,7 +3,7 @@ import Style from "./Register.module.scss";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { addData, setData } from "../Redux/slice";
+import { addData, setData } from "../../Redux/slice";
 import Button from "@mui/material/Button";
 import joi from "joi";
 const Register = () => {
