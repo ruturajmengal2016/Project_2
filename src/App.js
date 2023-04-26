@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
+import Footer from "./Pages/Footer/Footer";
+import Style from './App.module.scss'
 function App() {
   return (
-    <div className="App">
-      <div>Header</div>
+    <div>
       <Outlet />
-      <div>Footer</div>
+      <Footer />
     </div>
   );
 }
