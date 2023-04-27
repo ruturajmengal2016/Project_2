@@ -16,12 +16,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+
 export default function SideNav() {
   const [open, setOpen] = React.useState(false);
-
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="down" ref={ref} {...props} />;
-  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,6 +30,7 @@ export default function SideNav() {
   const handleClose = () => {
     setOpen(false);
   };
+
   const data = [
     {
       icon: <HouseIcon />,
@@ -66,38 +67,51 @@ export default function SideNav() {
   ];
 
   return (
-    <div>
-      <TwitterIcon sx={{ color: "skyblue" }} />
-      {data.map((ele, index) => {
-        return (
-          <div className={style.parentDiv} key={index}>
-            <span>
-              {" "}
-              <Button className={style.navContent}
-                sx={{
-                  borderRadius: 10,
-                  color: "black",
-                  textTransform: "none",
-                  gap: 3,
-                  '&:hover': {
-                    backgroundColor: 'rgb(231, 233, 234)',
-                    opacity: [0.9, 0.8, 0.7],
-                },
-                fontSize: "1.5rem",
-                fontWeight : 550,
-
-            }}
-              >
-                {" "}
-                {ele.icon} {ele.name}
-              </Button>
-            </span>
-          </div>
-        );
-      })}
-
-      <div>
-        <Button variant="contained" onClick={handleClickOpen}>
+    <div className={style.root}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <div>
+          <TwitterIcon sx={{ color: "#42a5f5", fontSize: "2rem" }} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
+          {data.map((ele, index) => {
+            return (
+              <div key={index}>
+                <span>
+                  {" "}
+                  <Button
+                    className={style.navContent}
+                    sx={{
+                      borderRadius: 10,
+                      color: "black",
+                      textTransform: "none",
+                      gap: 3,
+                      "&:hover": {
+                        backgroundColor: "rgb(231, 233, 234)",
+                        opacity: [0.9, 0.8, 0.7],
+                      },
+                      fontSize: "1.5rem",
+                      fontWeight: 550,
+                    }}
+                  >
+                    {" "}
+                    {ele.icon} {ele.name}
+                  </Button>
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <Button
+          variant="contained"
+          onClick={handleClickOpen}
+          sx={{ textTransform: "none", borderRadius: "5rem", width: "100%",backgroundColor:"#42a5f5" }}
+        >
           Tweet
         </Button>
         <Dialog
@@ -108,7 +122,7 @@ export default function SideNav() {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+            <Button onClick={handleClose}>Disagree</Button>
           </DialogActions>
           <DialogTitle>{"Use Google's location service?"}</DialogTitle>
           <DialogContent>
