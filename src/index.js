@@ -11,12 +11,22 @@ import { Provider } from "react-redux";
 import Home from "./Pages/Home/Home";
 import { store } from "./Redux/store";
 import LoginPage from "./Pages/Login/LoginPage";
+import Footer from "./Pages/Footer/Footer";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<LoginPage />} />  
+      <Route path="/home" element={<Home />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/"
+        element={
+          <>
+            <Home />
+            <Footer />
+          </>
+        }
+      />
     </Route>
   )
 );
