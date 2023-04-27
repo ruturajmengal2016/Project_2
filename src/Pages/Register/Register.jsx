@@ -34,6 +34,16 @@ const Register = () => {
       />
       <TextField
         id="outlined-basic"
+        name="password"
+        type="password"
+        label="Password"
+        variant="outlined"
+        onChange={(e) => {
+          dispatch(setData({ text: e.target.value, name: e.target.name }));
+        }}
+      />
+      <TextField
+        id="outlined-basic"
         label="Phone"
         name="phone"
         variant="outlined"
@@ -61,6 +71,9 @@ const Register = () => {
         type="submit"
         variant="contained"
         className={Style.submit}
+        sx={{
+          textTransform: "none",
+        }}
         onClick={(e) => {
           e.preventDefault();
           dispatch(addData());
