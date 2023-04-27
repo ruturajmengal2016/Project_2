@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { ImAppleinc } from "react-icons/im";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Style from "./LoginPage.module.scss";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -12,14 +12,36 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";
+import {getUsers} from '../../utils/localstorage'
 const Login = () => {
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
+  const [localdata,setLocaldata]=useState("");
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    const data=getUsers();
+    setLocaldata(data);
+
+  },[])
+
   const handleClose = () => {
     setOpen(false);
     navigate("/");
   };
+
+  function handleSubmit(e){
+    e.preventDefault();
+
+    if(localdata.email === details.email && localdata.password===details.password){
+      localStorage.setItem("login-success", JSON.stringify(true))
+      navigate("/")
+    }
+    else{
+      return;
+    }
+
+  }
 
   return (
     <div>
@@ -110,9 +132,7 @@ const Login = () => {
               type="submit"
               variant="contained"
               className={Style.submit}
-              onClick={(e) => {
-                e.preventDefault();
-              }}
+              onClick={handleSubmit}
               sx={{
                 width: "50%",
                 alignSelf: "center",

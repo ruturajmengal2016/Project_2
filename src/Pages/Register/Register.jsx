@@ -10,7 +10,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.user.value);
   //   localStorage.clear()
-  //   localStorage.setItem("users", JSON.stringify(selector));
+    localStorage.setItem("users", JSON.stringify(selector));
   return (
     <form className={Style.root}>
       <TextField
