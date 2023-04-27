@@ -5,12 +5,14 @@ import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { addData, setData } from "../../Redux/slice";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import joi from "joi";
 const Register = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.user.value);
+  const navigate = useNavigate();
   //   localStorage.clear()
-    localStorage.setItem("users", JSON.stringify(selector));
+  // localStorage.setItem("users", JSON.stringify(selector)); 
   return (
     <form className={Style.root}>
       <TextField
@@ -78,6 +80,7 @@ const Register = () => {
           e.preventDefault();
           dispatch(addData());
           validation(selector);
+          navigate("/login");
         }}
       >
         Next
@@ -94,6 +97,7 @@ const validation = (data) => {
       .string()
       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
       .required(),
+    password: joi.string(),
     phone: joi.number().min(10).required(),
     DOB: joi.date(),
   });
