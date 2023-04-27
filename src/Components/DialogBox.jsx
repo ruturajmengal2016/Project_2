@@ -18,7 +18,7 @@ export const DialogBox = ({
       open={open}
       PaperProps={{
         sx: {
-          height: "85%",
+          height: "90%",
           padding: "0rem 1rem 1rem 1rem",
           borderRadius: "1.5rem",
           minWidth: "40%",

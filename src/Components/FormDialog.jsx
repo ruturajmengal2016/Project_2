@@ -4,7 +4,7 @@ import DialogBox from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import Register from "../Pages/Register";
+import Register from "../Pages/Register/Register";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import {useNavigate} from 'react-router-dom'
@@ -59,7 +59,7 @@ export default function FormDialog() {
         open={open}
         PaperProps={{
           sx: {
-            height: "80%",
+            height: "90%",
             padding: "0rem 1rem 1rem 1rem",
             borderRadius: "1.5rem",
             minWidth: "40%",
