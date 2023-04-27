@@ -1,8 +1,12 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { DialogBox } from "./DialogBox";
-import Register from "../Pages/Register/Register";
-import { useNavigate } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Register from "../Pages/Register";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
 import RegisterFront from "./RegisterFront";
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -52,12 +56,43 @@ export default function FormDialog() {
       </Button>
       <DialogBox
         open={open}
-        handleClose={handleClose}
-        click={click}
-        setClick={setClick}
-        element={{ Register, RegisterFront }}
-        title="Create your account"
-      />
+        PaperProps={{
+          sx: {
+            height: "80%",
+            padding: "0rem 1rem 1rem 1rem",
+            borderRadius: "1.5rem",
+            minWidth: "40%",
+          },
+        }}
+      >
+        <DialogContent>
+          <DialogActions
+            sx={{
+              float: "left",
+              width: "1.2rem",
+            }}
+          >
+            <Button
+              sx={{ display: "inline-block", height: "5rem" }}
+              onClick={handleClose}
+            >
+              <CloseIcon sx={{ color: "black" }} />
+            </Button>
+          </DialogActions>
+          {click ? (
+            <RegisterFront click={click} setClick={setClick} />
+          ) : (
+            <>
+              <DialogTitle>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Create your account
+                </Typography>
+              </DialogTitle>
+              <Register />
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
