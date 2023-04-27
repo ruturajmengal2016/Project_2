@@ -13,7 +13,7 @@ export const userSlice = createSlice({
     data: [],
   },
   reducers: {
-    addData: (state, action) => {
+    addData: (state) => {
       state.data.push(state.value);
     },
     setData: (state, action) => {
