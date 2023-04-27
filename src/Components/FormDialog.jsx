@@ -1,12 +1,13 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
+import DialogBox from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Register from "../Pages/Register";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
+import {useNavigate} from 'react-router-dom'
 import RegisterFront from "./RegisterFront";
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -92,7 +93,7 @@ export default function FormDialog() {
             </>
           )}
         </DialogContent>
-      </Dialog>
+      </DialogBox>
     </div>
   );
 }
