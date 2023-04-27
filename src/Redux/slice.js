@@ -6,6 +6,7 @@ export const userSlice = createSlice({
     value: {
       name: "",
       email: "",
+      password: "",
       phone: "",
       DOB: "",
     },
@@ -24,4 +25,4 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addData,setData } = userSlice.actions;
+export const { addData, setData } = userSlice.actions;

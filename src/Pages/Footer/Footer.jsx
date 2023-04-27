@@ -1,7 +1,7 @@
 import React from "react";
-import Style from "./Footer.module.scss";
+import Style from "../Footer/Footer.module.scss";
 import Box from "@mui/material/Box";
-import FormDialog from "../Components/FormDialog";
+import FormDialog from "../../Components/FormDialog";
 import Typography from "@mui/material/Typography";
 const Footer = () => {
   return (

@@ -8,14 +8,15 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Provider } from "react-redux";
-import Home from "./Pages/Home";
+import Home from "./Pages/Home/Home";
 import { store } from "./Redux/store";
+import LoginPage from "./Pages/Login/LoginPage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Home />} />
-      <Route />
+      <Route path="/login" element={<LoginPage />} />  
     </Route>
   )
 );

@@ -3,7 +3,7 @@ import Style from "./Register.module.scss";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { addData, setData } from "../Redux/slice";
+import { addData, setData } from "../../Redux/slice";
 import Button from "@mui/material/Button";
 import joi from "joi";
 const Register = () => {
@@ -27,6 +27,16 @@ const Register = () => {
         name="email"
         type="email"
         label="Email"
+        variant="outlined"
+        onChange={(e) => {
+          dispatch(setData({ text: e.target.value, name: e.target.name }));
+        }}
+      />
+      <TextField
+        id="outlined-basic"
+        name="password"
+        type="password"
+        label="Password"
         variant="outlined"
         onChange={(e) => {
           dispatch(setData({ text: e.target.value, name: e.target.name }));
@@ -61,6 +71,9 @@ const Register = () => {
         type="submit"
         variant="contained"
         className={Style.submit}
+        sx={{
+          textTransform: "none",
+        }}
         onClick={(e) => {
           e.preventDefault();
           dispatch(addData());

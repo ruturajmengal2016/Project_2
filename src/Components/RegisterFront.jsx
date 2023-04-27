@@ -3,23 +3,33 @@ import Style from "./RegisterFront.module.scss";
 import Button from "@mui/material/Button";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Link from "@mui/material/Link";
-import {FcGoogle} from "react-icons/fc";
-import {ImAppleinc} from "react-icons/im";
+import { FcGoogle } from "react-icons/fc";
+import { ImAppleinc } from "react-icons/im";
 const RegisterFront = ({ click, setClick }) => {
   return (
     <div className={Style.root}>
-      <TwitterIcon sx={{ color: "blue", fontSize: "2rem" }} />
+      <TwitterIcon sx={{ color: `#42a5f5`, fontSize: "2rem" }} />
       <Button
         variant="outlined"
-        sx={{ backgroundColor: "white", borderRadius: "5rem" }}
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "5rem",
+          textTransform: "none",
+        }}
       >
-        <FcGoogle size={20} />&nbsp;Sign up with Google
+        <FcGoogle size={20} />
+        &nbsp;Sign up with Google
       </Button>
       <Button
         variant="outlined"
-        sx={{ backgroundColor: "white", borderRadius: "5rem" }}
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "5rem",
+          textTransform: "none",
+        }}
       >
-        <ImAppleinc size={20} />&nbsp;Sign up with Apple
+        <ImAppleinc size={20} />
+        &nbsp;Sign up with Apple
       </Button>
       <div>
         <span>or</span>
