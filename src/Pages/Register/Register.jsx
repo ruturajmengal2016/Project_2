@@ -12,7 +12,7 @@ const Register = () => {
   const selector = useSelector((state) => state.user.value);
   const navigate = useNavigate();
   //   localStorage.clear()
-  // localStorage.setItem("users", JSON.stringify(selector)); 
+  // localStorage.setItem("users", JSON.stringify(selector));
   return (
     <form className={Style.root}>
       <TextField
@@ -79,8 +79,7 @@ const Register = () => {
         onClick={(e) => {
           e.preventDefault();
           dispatch(addData());
-          validation(selector);
-          navigate("/login");
+          validation(selector, navigate);
         }}
       >
         Next
@@ -89,7 +88,7 @@ const Register = () => {
   );
 };
 
-const validation = (data) => {
+const validation = (data, navigate) => {
   console.log(data);
   const schema = joi.object({
     name: joi.string().min(1).max(30).required(),
@@ -97,14 +96,18 @@ const validation = (data) => {
       .string()
       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
       .required(),
-    password: joi.string(),
+    password: joi.string().required(),
     phone: joi.number().min(10).required(),
-    DOB: joi.date(),
+    DOB: joi.date().required(),
   });
   schema
     .validateAsync(data)
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    .then((res) => {
+      navigate("/login");
+    })
+    .catch((err) => {
+      alert(err);
+    });
 };
 
 export default Register;

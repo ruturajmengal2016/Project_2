@@ -1,0 +1,53 @@
+.root {
+  position: relative;
+  border: 1px solid rgb(201, 197, 197);
+  border-top: none;
+  .header {
+    position: sticky;
+    height: 20vh;
+    z-index: 1;
+    top: 0;
+    backdrop-filter: blur(10px);
+  }
+  .profile {
+    overflow: scroll;
+    height: 100vh;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .first {
+    padding: 0.5rem;
+  }
+
+  .second {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1rem;
+    gap: 0.5rem;
+
+    .icons {
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 0.5rem;
+    }
+  }
+
+  .tweetIcons {
+    display: flex;
+    justify-content:space-between;
+    width: 90%;
+    box-sizing: border-box;
+    align-items: center;
+    span {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      justify-content: center;
+    }
+  }
+}
