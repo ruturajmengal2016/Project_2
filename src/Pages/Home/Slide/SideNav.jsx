@@ -78,7 +78,9 @@ export default function SideNav() {
         <div>
           <TwitterIcon sx={{ color: "#42a5f5", fontSize: "2rem" }} />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}
+        >
           {data.map((ele, index) => {
             return (
               <div key={index}>
@@ -110,7 +112,15 @@ export default function SideNav() {
         <Button
           variant="contained"
           onClick={handleClickOpen}
-          sx={{ textTransform: "none", borderRadius: "5rem", width: "100%",backgroundColor:"#42a5f5" }}
+          sx={{
+            textTransform: "none",
+            borderRadius: "5rem",
+            width: "100%",
+            backgroundColor: "#42a5f5",
+            "&:hover": {
+              backgroundColor:"#42a5f5"
+            },
+          }}
         >
           Tweet
         </Button>
