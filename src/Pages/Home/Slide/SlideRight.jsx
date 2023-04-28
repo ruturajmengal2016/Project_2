@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Style from "./SlideRight.module.scss";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -147,6 +147,11 @@ const Happening = ({ name, tag, tweets }) => {
 };
 
 const Follow = ({ email, nick }) => {
+  const[follow,SetFollow]=useState(false);
+
+  function handleFollow(){
+    SetFollow(!follow)
+  }
   return (
     <div className={Style.follow}>
       <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -154,7 +159,7 @@ const Follow = ({ email, nick }) => {
         <span>{email}</span>
         <span>{nick}</span>
       </div>
-      <Button variant="contained">Follow</Button>
+      <Button onClick={handleFollow} variant="contained">{follow==true ? "Followed" : "Follow"}</Button>
     </div>
   );
 };

@@ -10,3 +10,21 @@
   position: fixed;
   left: 5rem;
 }
+
+.textarea{
+  border: none;
+  outline: none;
+
+}
+
+.inputOftweet{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tweet{
+  display: flex;
+  justify-content: space-between;
+
+}

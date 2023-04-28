@@ -12,7 +12,7 @@ const Register = () => {
   const selector = useSelector((state) => state.user.value);
   const navigate = useNavigate();
   //   localStorage.clear()
-  // localStorage.setItem("users", JSON.stringify(selector)); 
+  localStorage.setItem("users", JSON.stringify(selector)); 
   return (
     <form className={Style.root}>
       <TextField

@@ -15,6 +15,15 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import ClearIcon from "@mui/icons-material/Clear";
+import Avatar from "@mui/material/Avatar";
+import ImageIcon from "@mui/icons-material/Image";
+import GifBoxIcon from "@mui/icons-material/GifBox";
+import PollIcon from "@mui/icons-material/Poll";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import PendingActionsIcon from "@mui/icons-material/PendingActions";
+import PlaceIcon from "@mui/icons-material/Place";
+import PublicIcon from "@mui/icons-material/Public";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -78,7 +87,9 @@ export default function SideNav() {
         <div>
           <TwitterIcon sx={{ color: "#42a5f5", fontSize: "2rem" }} />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}
+        >
           {data.map((ele, index) => {
             return (
               <div key={index}>
@@ -110,7 +121,12 @@ export default function SideNav() {
         <Button
           variant="contained"
           onClick={handleClickOpen}
-          sx={{ textTransform: "none", borderRadius: "5rem", width: "100%",backgroundColor:"#42a5f5" }}
+          sx={{
+            textTransform: "none",
+            borderRadius: "5rem",
+            width: "100%",
+            backgroundColor: "#42a5f5",
+          }}
         >
           Tweet
         </Button>
@@ -120,15 +136,65 @@ export default function SideNav() {
           keepMounted
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
+          PaperProps={{ sx: { width: "50%", position: "relative"} }}
         >
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
+          <DialogActions sx={{marginTop :"2rem",marginBottom:"1rem"}}>
+            <Button sx={{ position : "absolute" , left : 0,dislpay : "block",marginTop :"2rem",marginBottom:"1rem" }} onClick={handleClose}>
+              <ClearIcon />
+            </Button>
           </DialogActions>
-          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle >
+            <Avatar
+              alt="Travis Howard"
+              src="https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png"
+            />
+          </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
+              <div className={style.inputOftweet}>
+                <textarea
+                  placeholder="What's happening?"
+                  rows="5"
+                  column="100"
+                  className={style.textarea}
+                />
+
+                <Button
+                  sx={{
+                    textTransform: "none",
+                    fontSize: ".75rem",
+                    width: "30%",
+                    borderRadius: 10,
+                    "&:hover": {
+                      backgroundColor: "rgb(231, 233, 234)",
+                      opacity: [0.9, 0.8, 0.7],
+                    },
+                  }}
+                >
+                  <PublicIcon />
+                  Everyone can reply
+                </Button>
+                <hr></hr>
+
+                <div className={style.tweet}>
+                  <div className={style.tweetIcon}>
+                    <ImageIcon sx={{ color: "skyblue" }} />
+                    <GifBoxIcon sx={{ color: "skyblue" }} />
+                    <PollIcon sx={{ color: "skyblue" }} />
+                    <SentimentSatisfiedAltIcon sx={{ color: "skyblue" }} />
+                    <PendingActionsIcon sx={{ color: "skyblue" }} />
+                    <PlaceIcon sx={{ color: "skyblue" }} />
+                  </div>
+                  <div>
+                    <Button
+                      variant="contained"
+                      sx={{ borderRadius: 10, textTransform: "none" }}
+                    >
+                      tweet
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </DialogContentText>
           </DialogContent>
         </Dialog>

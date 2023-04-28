@@ -13,6 +13,7 @@ import DialogContent from "@mui/material/DialogContent";
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";
 import {getUsers} from '../../utils/localstorage'
+import Alert from '@mui/material/Alert';
 const Login = () => {
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
@@ -35,10 +36,12 @@ const Login = () => {
 
     if(localdata.email === details.email && localdata.password===details.password){
       localStorage.setItem("login-success", JSON.stringify(true))
-      navigate("/")
+      navigate("/home")
     }
     else{
-      return;
+
+      navigate("/")
+      
     }
 
   }
