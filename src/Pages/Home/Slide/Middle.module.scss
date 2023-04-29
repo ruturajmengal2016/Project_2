@@ -2,6 +2,9 @@
   position: relative;
   border: 1px solid rgb(201, 197, 197);
   border-top: none;
+  *::-webkit-scrollbar {
+    display: none;
+  }
   .header {
     position: sticky;
     height: 20vh;
@@ -12,9 +15,6 @@
   .profile {
     overflow: scroll;
     height: 100vh;
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   .first {
@@ -39,7 +39,7 @@
 
   .tweetIcons {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     width: 90%;
     box-sizing: border-box;
     align-items: center;

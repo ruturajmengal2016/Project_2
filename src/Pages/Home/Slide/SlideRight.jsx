@@ -7,7 +7,10 @@ import InputBase from "@mui/material/InputBase";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import { useSelector } from "react-redux";
 const SlideRight = () => {
+  const selector = useSelector((state) => state.tweet.data);
+  const selector2 = useSelector((state) => state.tweeterUsers.data);
   const Search = styled("div")(({ theme }) => ({
     position: "sticky",
     top: 0,
@@ -34,20 +37,6 @@ const SlideRight = () => {
       width: "100%",
     },
   }));
-  const tag = [
-    { name: "Trending in India", tag: "#delhimetro", tweets: "9000 Tweets" },
-    {
-      name: "Entertainment.Trending",
-      tag: "Warner Bros",
-      tweets: "9000 Tweets",
-    },
-    { name: "Trending in India", tag: "Hoster", tweets: "9000 Tweets" },
-    {
-      name: "Entertainment.Trending",
-      tag: "#ViratKohali",
-      tweets: "9000 Tweets",
-    },
-  ];
   return (
     <div className={Style.root}>
       <Search>
@@ -73,16 +62,16 @@ const SlideRight = () => {
           What’s happening
         </Typography>
         <div>
-          {tag.map((ele, ind) => {
-            return (
-              <Happening
-                tag={ele.tag}
-                name={ele.name}
-                tweets={ele.tweets}
-                key={ind}
-              />
-            );
-          })}
+          {selector[0] &&
+            selector[0].slice(0, 4).map((ele, ind) => {
+              return (
+                <Happening
+                  tweetedBy={ele.tweetedBy}
+                  content={ele.content}
+                  key={ind}
+                />
+              );
+            })}
         </div>
         <Button
           sx={{
@@ -115,14 +104,15 @@ const SlideRight = () => {
             gap: "1rem",
           }}
         >
-          <Follow email="ruturajmengal@gmail.com" nick="@ruturaj" />
-          <Follow email="ruturajmengal@gmail.com" nick="@ruturaj" />
-          <Follow email="ruturajmengal@gmail.com" nick="@ruturaj" />
+          {selector2[0] &&
+            selector2[0].slice(8, 11).map((ele, ind) => {
+              return <Follow key={ind} name={ele.name} avatar={ele.image} />;
+            })}
         </div>
         <Button
           sx={{
             textTransform: "none",
-            alignSelf:"flex-start"
+            alignSelf: "flex-start",
           }}
         >
           Show more
@@ -136,25 +126,42 @@ const SlideRight = () => {
   );
 };
 
-const Happening = ({ name, tag, tweets }) => {
+const Happening = ({ tweetedBy, content }) => {
   return (
     <div className={Style.tag}>
-      <div>{name}</div>
-      <strong>{tag}</strong>
-      <div>{tweets}</div>
+      <div>{tweetedBy.name}</div>
+      <strong>#{tweetedBy.name}</strong>
+      <div style={{ width: "80%", height: "2.1rem", overflow: "hidden" }}>
+        {content}
+      </div>
     </div>
   );
 };
 
-const Follow = ({ email, nick }) => {
+const Follow = ({ name,avatar }) => {
+  const [follow, setFollow] = React.useState(false);
   return (
     <div className={Style.follow}>
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <span>{email}</span>
-        <span>{nick}</span>
+      <Avatar alt={name} src={avatar} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignSelf: "center",
+          justifyContent: "flex-start",
+        }}
+      >
+        <strong>{name}</strong>
+        <span>@{name}</span>
       </div>
-      <Button variant="contained">Follow</Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setFollow(!follow);
+        }}
+      >
+        {follow ? "Following" : "Follow"}
+      </Button>
     </div>
   );
 };
