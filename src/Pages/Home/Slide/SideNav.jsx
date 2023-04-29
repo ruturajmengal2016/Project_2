@@ -10,11 +10,9 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Button from "@mui/material/Button";
 import style from "./SideNav.module.scss";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import CloseIcon from "@mui/icons-material/Close";
+import { TweetProfile } from "../../../Components/TweetProfile";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -118,7 +116,7 @@ export default function SideNav() {
             width: "100%",
             backgroundColor: "#42a5f5",
             "&:hover": {
-              backgroundColor:"#42a5f5"
+              backgroundColor: "#42a5f5",
             },
           }}
         >
@@ -130,17 +128,25 @@ export default function SideNav() {
           keepMounted
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
+          PaperProps={{
+            sx: {
+              width: "50%",
+              height: "fit-content",
+              padding: "1rem",
+              borderRadius: "1rem",
+            },
+          }}
         >
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-          </DialogActions>
-          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </DialogContentText>
-          </DialogContent>
+          <div style={{ display: "flex" }}>
+            <div>
+              <Button onClick={handleClose}>
+                <CloseIcon />
+              </Button>
+            </div>
+            <div style={{ width: "100%" }}>
+              <TweetProfile closetweet={handleClose} />
+            </div>
+          </div>
         </Dialog>
       </div>
     </div>

@@ -26,6 +26,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
 import { useSelector, useDispatch } from "react-redux";
 import { AiFillHeart } from "react-icons/ai";
+import CloseIcon from "@mui/icons-material/Close";
 import { tweetData } from "../../../Redux/slice";
 import { tweeterUser } from "../../../Redux/slice";
 
@@ -60,9 +61,10 @@ const Profile = () => {
       <div className={Style.first}>
         <Avatar
           alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 56, height: 56 }}
-        />
+          sx={{ width: 56, height: 56, bgcolor: "blue" }}
+        >
+          RM
+        </Avatar>
       </div>
       <div className={Style.second}>
         <div>
@@ -320,6 +322,22 @@ function BasicTabs({ title }) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Profile />
+        {selector[0] &&
+          selector[0].slice(20, 60).map((ele, ind) => {
+            return (
+              <TweetBox
+                avatar={selector2[0][ind].image}
+                commentCount={ele.commentCount}
+                content={ele.content}
+                isLiked={ele.isLiked}
+                key={ele.id}
+                image={ele.image}
+                reTweetCount={ele.reTweetsCount}
+                tweetedBy={ele.tweetedBy}
+                likeCount={ele.likeCount}
+              />
+            );
+          })}
       </TabPanel>
     </Box>
   );
@@ -389,7 +407,13 @@ function TweetBox({
             <ChatBubbleOutlineIcon />
             &nbsp;<span>{commentCount}</span>
           </span>
-          <CommentDialog handleClose={handleClose} open={open} />
+          <CommentDialog
+            handleClose={handleClose}
+            open={open}
+            avater={avatar}
+            name={tweetedBy.name}
+            content={content}
+          />
           <span>
             <FaRetweet size={30} />
             &nbsp;<span>{reTweetCount}</span>
@@ -414,7 +438,7 @@ function TweetBox({
   );
 }
 
-function CommentDialog({ open, handleClose }) {
+function CommentDialog({ open, handleClose, avater, content, name }) {
   return (
     <div>
       <Dialog
@@ -433,14 +457,115 @@ function CommentDialog({ open, handleClose }) {
           alignItems: "flex-start",
         }}
       >
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ flex: 1 }}>
-            <Button onClick={handleClose}>❌</Button>
+            <Button onClick={handleClose}>
+              <CloseIcon />
+            </Button>
           </div>
-          <div style={{ flex: 2 }}></div>
+          <div
+            style={{
+              flex: 2,
+              padding: "0rem 0rem 1rem 3rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.4rem",
+            }}
+          >
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              <Avatar src={avater}></Avatar>&nbsp;<strong>{name}</strong>&nbsp;
+              <span>@{name}</span>&nbsp;
+              <span
+                style={{
+                  paddingLeft: "2rem",
+                  width: "80%",
+                  height: "2.5rem",
+                  overflow: "hidden",
+                }}
+              >
+                {content}
+              </span>
+            </div>
+            <div
+              style={{
+                height: "5rem",
+                backgroundColor: "gray",
+                display: "inline-block",
+                width: "0.2rem",
+                boxSizing: "border-box",
+                marginLeft: "1rem",
+              }}
+            ></div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Avatar sx={{ bgcolor: "blue" }}>RM</Avatar>
+              <TextField
+                placeholder="Tweet your reply"
+                sx={{
+                  "& fieldset": { border: "none" },
+                  maxHeight: "fit-content",
+                  width: "80%",
+                  fontSize: "2rem",
+                }}
+                multiline
+              />
+            </div>
+            <div style={{ width: "90%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    alignSelf: "flex-end",
+                    display: "flex",
+                    gap: "0.5rem",
+                    boxSizing: "border-box",
+                    padding: "0.5rem",
+                  }}
+                >
+                  <span>
+                    <CropOriginalIcon sx={{ color: "#42a5f5" }} />
+                  </span>
+                  <span>
+                    <GifBoxIcon sx={{ color: "#42a5f5" }} />
+                  </span>
+                  <span>
+                    <PollIcon sx={{ color: "#42a5f5" }} />
+                  </span>
+                  <span>
+                    <SentimentSatisfiedAltIcon sx={{ color: "#42a5f5" }} />
+                  </span>
+                  <span>
+                    <EditCalendarIcon sx={{ color: "#42a5f5" }} />
+                  </span>
+                  <span>
+                    <LocationOnIcon sx={{ color: "#42a5f5" }} />
+                  </span>
+                </div>
+                <div>
+                  <Button
+                    onClick={handleClose}
+                    variant="contained"
+                    sx={{
+                      borderRadius: "2rem",
+                      textTransform: "none",
+                      fontSize: "1rem",
+                      padding: "0.2rem 1.2rem 0.2rem 1.2rem",
+                    }}
+                  >
+                    Tweet
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Dialog>
     </div>
   );
 }
+
 export default Middle;
