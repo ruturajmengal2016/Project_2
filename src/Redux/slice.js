@@ -3,24 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    value: {
-      name: "",
-      email: "",
-      password: "",
-      phone: "",
-      DOB: "",
-    },
     data: [],
   },
   reducers: {
-    addData: (state) => {
-      state.data.push(state.value);
-    },
-    setData: (state, action) => {
-      state.value = {
-        ...state.value,
-        [action.payload.name]: action.payload.text,
-      };
+    addData: (state, action) => {
+      state.data.push(action.payload.details);
     },
   },
 });
@@ -49,6 +36,6 @@ export const tweetUsers = createSlice({
   },
 });
 
-export const { addData, setData } = userSlice.actions;
-export const { tweetData } = tweetSlice.actions; 
-export const { tweeterUser } = tweetUsers.actions; 
+export const { addData } = userSlice.actions;
+export const { tweetData } = tweetSlice.actions;
+export const { tweeterUser } = tweetUsers.actions;

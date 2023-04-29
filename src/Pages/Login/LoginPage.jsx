@@ -12,37 +12,26 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";
-import {getUsers} from '../../utils/localstorage'
+import { getUsers } from "../../utils/localstorage";
 const Login = () => {
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
-  const [localdata,setLocaldata]=useState("");
   const navigate = useNavigate();
-
-  useEffect(()=>{
-    const data=getUsers();
-    setLocaldata(data);
-
-  },[])
-
+  const localdata = getUsers();
   const handleClose = () => {
     setOpen(false);
     navigate("/");
   };
-
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
-
-    if(localdata.email === details.email && localdata.password===details.password){
-      localStorage.setItem("login-success", JSON.stringify(true))
-      navigate("/")
-    }
-    else{
-      return;
-    }
-
+    localdata.map((ele) => {
+      if (ele.email === details.email && ele.password === details.password) {
+        navigate("/home");
+      } else {
+        alert("You don't have any account!");
+      }
+    });
   }
-
   return (
     <div>
       <Dialog
@@ -52,7 +41,7 @@ const Login = () => {
             height: "80%",
             padding: "0rem 1rem 1rem 1rem",
             borderRadius: "1.5rem",
-            minWidth: "40%",
+            minWidth: "50%",
             position: "relative",
           },
         }}

@@ -12,7 +12,8 @@
   .middle {
     height: 100vh;
     overflow: scroll;
-    flex: 2;
+    flex: 1.5;
+    flex-shrink: 2;
     &::-webkit-scrollbar {
       display: none;
     }

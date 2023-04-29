@@ -27,9 +27,7 @@ import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
 import { useSelector, useDispatch } from "react-redux";
 import { AiFillHeart } from "react-icons/ai";
 import CloseIcon from "@mui/icons-material/Close";
-import { tweetData } from "../../../Redux/slice";
-import { tweeterUser } from "../../../Redux/slice";
-
+import { tweetData, tweeterUser } from "../../../Redux/slice";
 const Middle = () => {
   return (
     <div className={Style.root}>
@@ -354,10 +352,11 @@ function TweetBox({
   isLiked,
   reTweetCount,
 }) {
+  const [open, setOpen] = React.useState(false);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
