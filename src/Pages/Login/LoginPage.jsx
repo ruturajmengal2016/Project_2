@@ -41,7 +41,7 @@ const Login = () => {
             height: "80%",
             padding: "0rem 1rem 1rem 1rem",
             borderRadius: "1.5rem",
-            minWidth: "50%",
+            minWidth: "40%",
             position: "relative",
           },
         }}
