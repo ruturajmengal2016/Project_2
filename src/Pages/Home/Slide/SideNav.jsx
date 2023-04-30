@@ -13,12 +13,14 @@ import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import CloseIcon from "@mui/icons-material/Close";
 import { TweetProfile } from "../../../Components/TweetProfile";
-
+import BadgeAvatars from "../../../Components/StyleBadged";
+import { getUsers } from "../../../utils/localstorage";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
 export default function SideNav() {
+  const getName = getUsers();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -149,6 +151,15 @@ export default function SideNav() {
           </div>
         </Dialog>
       </div>
+      {getName && (
+        <div style={{ display: "flex", gap: "1rem" }} className={style.id}>
+          <BadgeAvatars />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>{getName[0].name}</span>
+            <span>@{getName[0].name}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

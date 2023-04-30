@@ -1,17 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const userSlice = createSlice({
-  name: "user",
-  initialState: {
-    data: [],
-  },
-  reducers: {
-    addData: (state, action) => {
-      state.data.push(action.payload.details);
-    },
-  },
-});
-
 export const tweetSlice = createSlice({
   name: "tweet",
   initialState: {
@@ -36,6 +24,5 @@ export const tweetUsers = createSlice({
   },
 });
 
-export const { addData } = userSlice.actions;
 export const { tweetData } = tweetSlice.actions;
 export const { tweeterUser } = tweetUsers.actions;

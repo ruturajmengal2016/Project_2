@@ -14,6 +14,7 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Style from "./TweetProfile.module.scss";
+import imgs from '../utils/profile.png'
 export const TweetProfile = ({closetweet}) => {
   const [value, setValue] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -35,6 +36,7 @@ export const TweetProfile = ({closetweet}) => {
       <div className={Style.first}>
         <Avatar
           alt="Remy Sharp"
+          src={imgs}
           sx={{ width: 56, height: 56, bgcolor: "blue" }}
         >
           RM
