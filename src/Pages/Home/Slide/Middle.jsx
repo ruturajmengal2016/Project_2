@@ -229,11 +229,11 @@ function BasicTabs({ title }) {
   const selector = useSelector((state) => state.tweet.data);
   const selector2 = useSelector((state) => state.tweeterUsers.data);
   useEffect(() => {
-    fetch("/users.json")
+    fetch("https://twitterback.onrender.com/api/userData")
       .then((res) => res.json())
       .then((res) => dispatch(tweeterUser({ data: res })));
 
-    fetch("/tweets.json")
+    fetch("https://twitterback.onrender.com/api/tweetsdata")
       .then((res) => res.json())
       .then((res) => dispatch(tweetData({ data: res })));
   }, [dispatch]);
