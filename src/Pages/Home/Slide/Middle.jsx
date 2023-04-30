@@ -28,6 +28,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AiFillHeart } from "react-icons/ai";
 import CloseIcon from "@mui/icons-material/Close";
 import { tweetData, tweeterUser } from "../../../Redux/slice";
+import imgs from '../../../utils/profile.png'
 const Middle = () => {
   return (
     <div className={Style.root}>
@@ -59,6 +60,7 @@ const Profile = () => {
       <div className={Style.first}>
         <Avatar
           alt="Remy Sharp"
+          src={imgs}
           sx={{ width: 56, height: 56, bgcolor: "blue" }}
         >
           RM
@@ -496,7 +498,7 @@ function CommentDialog({ open, handleClose, avater, content, name }) {
               }}
             ></div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Avatar sx={{ bgcolor: "blue" }}>RM</Avatar>
+              <Avatar sx={{ bgcolor: "blue" }} src={imgs}>RM</Avatar>
               <TextField
                 placeholder="Tweet your reply"
                 sx={{
