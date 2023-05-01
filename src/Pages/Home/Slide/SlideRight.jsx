@@ -62,8 +62,8 @@ const SlideRight = () => {
           What’s happening
         </Typography>
         <div>
-          {selector[0] &&
-            selector[0].slice(0, 4).map((ele, ind) => {
+          {selector &&
+            selector.slice(0, 4).map((ele, ind) => {
               return (
                 <Happening
                   tweetedBy={ele.tweetedBy}
@@ -104,8 +104,8 @@ const SlideRight = () => {
             gap: "1rem",
           }}
         >
-          {selector2[0] &&
-            selector2[0].slice(8, 11).map((ele, ind) => {
+          {selector2 &&
+            selector2.slice(8, 11).map((ele, ind) => {
               return <Follow key={ind} name={ele.name} avatar={ele.image} />;
             })}
         </div>

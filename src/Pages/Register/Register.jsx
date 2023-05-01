@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import joi from "joi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const Register = () => {
   const [details, setDetails] = React.useState({
     name: "",
@@ -17,6 +16,12 @@ const Register = () => {
     DOB: "",
   });
   const navigate = useNavigate();
+  async function sendDetails() {
+    await fetch("http://localhost:5500/api/post", {
+      method: "POST",
+      body: JSON.stringify(details),
+    });
+  }
   return (
     <form className={Style.root}>
       <TextField
@@ -52,6 +57,7 @@ const Register = () => {
         id="outlined-basic"
         label="Phone"
         name="phone"
+        type="text"
         variant="outlined"
         onChange={(e) => {
           setDetails({ ...details, [e.target.name]: e.target.value });
@@ -82,7 +88,7 @@ const Register = () => {
         }}
         onClick={(e) => {
           e.preventDefault();
-          validation(details, navigate);
+          validation(details, navigate, sendDetails);
         }}
       >
         Next
@@ -92,7 +98,7 @@ const Register = () => {
   );
 };
 
-const validation = (data, navigate) => {
+const validation = (data, navigate, sendDetails) => {
   const notify = () => toast.error("Something went wrong!");
   const schema = joi.object({
     name: joi.string().min(1).max(30).required(),
@@ -118,8 +124,9 @@ const validation = (data, navigate) => {
       }
     })
     .then((res) => {
-      const value = [data]
+      const value = [data];
       localStorage.setItem("users", JSON.stringify([...value]));
+      sendDetails();
       navigate("/login");
     })
     .catch((err) => {
