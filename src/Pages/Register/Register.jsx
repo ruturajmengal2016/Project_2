@@ -17,7 +17,7 @@ const Register = () => {
   });
   const navigate = useNavigate();
   async function sendDetails() {
-    await fetch("https://twitterback.onrender.com/api/post", {
+    await fetch("http://localhost:5500/api/post", {
       method: "POST",
       body: JSON.stringify(details),
     });
