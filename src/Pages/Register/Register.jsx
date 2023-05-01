@@ -120,7 +120,7 @@ const validation = (data, navigate) => {
       navigate("/login");
     })
     .catch((err) => {
-      console.log(err)
+      notify()
     });
 };
 
