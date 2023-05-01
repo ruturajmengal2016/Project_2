@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import joi from "joi";
-import axios from 'axios'
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
@@ -18,7 +18,13 @@ const Register = () => {
   });
   const navigate = useNavigate();
   async function sendDetails() {
-    await axios.post('https://twitterback.onrender.com/api/register',details)
+    await axios.post("https://twitterback.onrender.com/api/create", {
+      name: details.name,
+      email: details.email,
+      password: details.password,
+      phone: details.phone,
+      DOB: details.DOB,
+    });
   }
   return (
     <form className={Style.root}>
@@ -86,8 +92,8 @@ const Register = () => {
         }}
         onClick={(e) => {
           e.preventDefault();
-          validation(details, navigate);
           sendDetails();
+          validation(details, navigate);
         }}
       >
         Next
