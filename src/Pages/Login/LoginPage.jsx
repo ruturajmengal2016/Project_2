@@ -10,12 +10,14 @@ import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import Link from "@mui/material/Link";
+import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Alert from '@mui/material/Alert';
 import { getUsers } from "../../utils/localstorage";
 const Login = () => {
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
+  const [error,setError] = useState("");
   const navigate = useNavigate();
   const localdata = getUsers()
   const handleClose = () => {
@@ -24,11 +26,26 @@ const Login = () => {
   };
   function handleSubmit(e) {
     e.preventDefault();
+    if(details.email==="" && details.password===""){
+      setError("Enter your email and password");
+      return;
+    }
+    else if(details.email==="" && details.password!==""){
+      setError("Enter your email first");
+      return;
+    }
+    else if(details.email!=="" && details.password===""){
+      setError("Enter your password first");
+      return;
+    }
     localdata.forEach((ele) => {
       if (ele.email === details.email && ele.password === details.password) {
         navigate("/home");
-      } else {
-        alert("You don't have any account!");
+      } else if(ele.email !== details.email && ele.password === details.password) {
+        setError("Invalid User!!!");
+      }
+      else if(ele.email === details.email && ele.password !== details.password){
+        setError("Wrong password!!!")
       }
     });
   }
@@ -117,6 +134,7 @@ const Login = () => {
                 alignSelf: "center",
               }}
             />
+            {error &&  <Alert severity="error">{error}</Alert>}
             <Button
               type="submit"
               variant="contained"
@@ -151,7 +169,7 @@ const Login = () => {
               }}
             >
               Don't have an account?{" "}
-              <Link href="#" underline="none">
+              <Link to ={"/register"} underline="none">
                 Sign up
               </Link>
             </div>
