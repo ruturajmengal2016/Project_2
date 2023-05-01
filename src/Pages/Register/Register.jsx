@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import joi from "joi";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
@@ -17,9 +18,12 @@ const Register = () => {
   });
   const navigate = useNavigate();
   async function sendDetails() {
-    await fetch("https://twitterback.onrender.com/api/post", {
-      method: "POST",
-      body: JSON.stringify(details),
+    await axios.post("https://twitterback.onrender.com/api/create", {
+      name: details.name,
+      email: details.email,
+      password: details.password,
+      phone: details.phone,
+      DOB: details.DOB,
     });
   }
   return (
@@ -88,7 +92,8 @@ const Register = () => {
         }}
         onClick={(e) => {
           e.preventDefault();
-          validation(details, navigate, sendDetails);
+          sendDetails();
+          validation(details, navigate);
         }}
       >
         Next
@@ -98,7 +103,7 @@ const Register = () => {
   );
 };
 
-const validation = (data, navigate, sendDetails) => {
+const validation = (data, navigate) => {
   const notify = () => toast.error("Something went wrong!");
   const schema = joi.object({
     name: joi.string().min(1).max(30).required(),
@@ -126,7 +131,6 @@ const validation = (data, navigate, sendDetails) => {
     .then((res) => {
       const value = [data];
       localStorage.setItem("users", JSON.stringify([...value]));
-      sendDetails();
       navigate("/login");
     })
     .catch((err) => {
