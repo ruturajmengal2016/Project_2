@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Style from "./Middle.module.scss";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -24,10 +24,9 @@ import { FiShare } from "react-icons/fi";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { AiFillHeart } from "react-icons/ai";
 import CloseIcon from "@mui/icons-material/Close";
-import { tweetData, tweeterUser } from "../../../Redux/slice";
 import imgs from '../../../utils/profile.png'
 const Middle = () => {
   return (
@@ -225,18 +224,8 @@ function BasicTabs({ title }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const dispatch = useDispatch();
   const selector = useSelector((state) => state.tweet.data);
   const selector2 = useSelector((state) => state.tweeterUsers.data);
-  useEffect(() => {
-    fetch("https://twitterback.onrender.com/api/userData")
-      .then((res) => res.json())
-      .then((res) => dispatch(tweeterUser({ data: res })));
-
-    fetch("https://twitterback.onrender.com/api/tweetsdata")
-      .then((res) => res.json())
-      .then((res) => dispatch(tweetData({ data: res })));
-  }, []);
   return (
     <Box
       sx={{
