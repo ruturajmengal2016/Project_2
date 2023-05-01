@@ -236,7 +236,7 @@ function BasicTabs({ title }) {
     fetch("https://twitterback.onrender.com/api/tweetsdata")
       .then((res) => res.json())
       .then((res) => dispatch(tweetData({ data: res })));
-  }, [dispatch]);
+  }, []);
   return (
     <Box
       sx={{
@@ -303,8 +303,7 @@ function BasicTabs({ title }) {
       </Box>
       <TabPanel value={value} index={0}>
         <Profile />
-        {selector[0] &&
-          selector[0].map((ele, ind) => {
+        {selector[0] && selector[0].map((ele, ind) => {
             return (
               <TweetBox
                 avatar={selector2[0][ind].image}
@@ -322,8 +321,7 @@ function BasicTabs({ title }) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Profile />
-        {selector[0] &&
-          selector[0].slice(20, 60).map((ele, ind) => {
+        {selector[0] && selector[0].slice(20, 60).map((ele, ind) => {
             return (
               <TweetBox
                 avatar={selector2[0][ind].image}
