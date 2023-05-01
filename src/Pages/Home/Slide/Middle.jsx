@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Style from "./Middle.module.scss";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -24,10 +24,11 @@ import { FiShare } from "react-icons/fi";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { AiFillHeart } from "react-icons/ai";
 import CloseIcon from "@mui/icons-material/Close";
-import imgs from '../../../utils/profile.png'
+import CircularProgress from "@mui/material/CircularProgress";
+import imgs from "../../../utils/profile.png";
 const Middle = () => {
   return (
     <div className={Style.root}>
@@ -292,10 +293,11 @@ function BasicTabs({ title }) {
       </Box>
       <TabPanel value={value} index={0}>
         <Profile />
-        {selector[0] && selector[0].map((ele, ind) => {
+        {selector2.length ? (
+          selector.map((ele, ind) => {
             return (
               <TweetBox
-                avatar={selector2[0][ind].image}
+                avatar={selector2[ind].image}
                 commentCount={ele.commentCount}
                 content={ele.content}
                 isLiked={ele.isLiked}
@@ -306,14 +308,20 @@ function BasicTabs({ title }) {
                 likeCount={ele.likeCount}
               />
             );
-          })}
+          })
+        ) : (
+          <CircularProgress
+            sx={{ position: "absolute", top: "70%", left: "50%" }}
+          />
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Profile />
-        {selector[0] && selector[0].slice(20, 60).map((ele, ind) => {
+        {selector2.length ? (
+          selector.slice(20, 60).map((ele, ind) => {
             return (
               <TweetBox
-                avatar={selector2[0][ind].image}
+                avatar={selector2[ind].image}
                 commentCount={ele.commentCount}
                 content={ele.content}
                 isLiked={ele.isLiked}
@@ -324,7 +332,12 @@ function BasicTabs({ title }) {
                 likeCount={ele.likeCount}
               />
             );
-          })}
+          })
+        ) : (
+          <CircularProgress
+            sx={{ position: "absolute", top: "70%", left: "50%" }}
+          />
+        )}
       </TabPanel>
     </Box>
   );
@@ -485,7 +498,9 @@ function CommentDialog({ open, handleClose, avater, content, name }) {
               }}
             ></div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Avatar sx={{ bgcolor: "blue" }} src={imgs}>RM</Avatar>
+              <Avatar sx={{ bgcolor: "blue" }} src={imgs}>
+                RM
+              </Avatar>
               <TextField
                 placeholder="Tweet your reply"
                 sx={{

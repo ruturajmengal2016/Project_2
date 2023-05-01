@@ -7,7 +7,7 @@ export const tweetSlice = createSlice({
   },
   reducers: {
     tweetData: (state, action) => {
-      state.data.push(action.payload.data);
+      state.data = action.payload.data;
     },
   },
 });
@@ -19,7 +19,7 @@ export const tweetUsers = createSlice({
   },
   reducers: {
     tweeterUser: (state, action) => {
-      state.data.push(action.payload.data);
+      state.data = action.payload.data;
     },
   },
 });
