@@ -17,19 +17,9 @@ const Register = () => {
     DOB: "",
   });
   const navigate = useNavigate();
-  async function sendDetails() {
-    await axios.post("https://twitterback.onrender.com/api/create", {
-      name: details.name,
-      email: details.email,
-      password: details.password,
-      phone: details.phone,
-      DOB: details.DOB,
-    });
-  }
   return (
     <form className={Style.root}>
       <TextField
-        id="outlined-basic"
         label="Name"
         name="name"
         variant="outlined"
@@ -38,7 +28,6 @@ const Register = () => {
         }}
       />
       <TextField
-        id="outlined-basic"
         name="email"
         type="email"
         label="Email"
@@ -48,7 +37,6 @@ const Register = () => {
         }}
       />
       <TextField
-        id="outlined-basic"
         name="password"
         type="password"
         label="Password"
@@ -58,7 +46,6 @@ const Register = () => {
         }}
       />
       <TextField
-        id="outlined-basic"
         label="Phone"
         name="phone"
         type="text"
@@ -75,7 +62,6 @@ const Register = () => {
         account is for a business, a pet, or something else.
       </Typography>
       <TextField
-        id="outlined-basic"
         name="DOB"
         type="date"
         variant="outlined"
@@ -92,7 +78,6 @@ const Register = () => {
         }}
         onClick={(e) => {
           e.preventDefault();
-          sendDetails();
           validation(details, navigate);
         }}
       >
@@ -128,13 +113,14 @@ const validation = (data, navigate) => {
         });
       }
     })
-    .then((res) => {
+    .then(async (res) => {
       const value = [data];
       localStorage.setItem("users", JSON.stringify([...value]));
+      await axios.post("https://twitterback.onrender.com/api/create",data);
       navigate("/login");
     })
     .catch((err) => {
-      notify();
+      console.log(err)
     });
 };
 
