@@ -15,6 +15,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { TweetProfile } from "../../../Components/TweetProfile";
 import BadgeAvatars from "../../../Components/StyleBadged";
 import { getUsers } from "../../../utils/localstorage";
+import { useNavigate } from "react-router-dom";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -22,7 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function SideNav() {
   const getName = getUsers();
   const [open, setOpen] = React.useState(false);
-
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -152,14 +156,58 @@ export default function SideNav() {
         </Dialog>
       </div>
       {getName && (
-        <div style={{ display: "flex", gap: "1rem" }} className={style.id}>
+        <div
+          style={{ display: "flex", gap: "1rem" }}
+          className={style.id}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <BadgeAvatars />
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <span>{getName[0].name}</span>
+            <span style={{ display: "flex", gap: "1rem" }}>
+              {getName[0].name} <BasicMenu />
+            </span>
             <span>@{getName[0].name}</span>
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function BasicMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
     </div>
   );
 }
