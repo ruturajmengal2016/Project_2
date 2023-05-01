@@ -7,7 +7,7 @@ function App() {
   const users = getUsers()
   useEffect(()=>{
     users && users.forEach(ele => {
-      if(ele.email === users.email){
+      if(ele.email){
         navigate("/home")
       }else{
         navigate("/")
