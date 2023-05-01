@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { ImAppleinc } from "react-icons/im";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Style from "./LoginPage.module.scss";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -17,14 +17,14 @@ const Login = () => {
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-  const localdata = getUsers();
+  const localdata = getUsers()
   const handleClose = () => {
     setOpen(false);
     navigate("/");
   };
   function handleSubmit(e) {
     e.preventDefault();
-    localdata.map((ele) => {
+    localdata.forEach((ele) => {
       if (ele.email === details.email && ele.password === details.password) {
         navigate("/home");
       } else {
