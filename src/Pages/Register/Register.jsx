@@ -116,11 +116,16 @@ const validation = (data, navigate) => {
     .then(async (res) => {
       const value = [data];
       localStorage.setItem("users", JSON.stringify([...value]));
-      await axios.post("https://twitterback.onrender.com/api/create",data);
+      await axios.post("https://twitterback.onrender.com/api/create", {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        phone: data.phone,
+      });
       navigate("/login");
     })
     .catch((err) => {
-      notify()
+      notify();
     });
 };
 
