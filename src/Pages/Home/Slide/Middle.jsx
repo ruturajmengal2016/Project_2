@@ -29,6 +29,7 @@ import { AiFillHeart } from "react-icons/ai";
 import CloseIcon from "@mui/icons-material/Close";
 import CircularProgress from "@mui/material/CircularProgress";
 import imgs from "../../../utils/profile.png";
+
 const Middle = () => {
   return (
     <div className={Style.root}>
