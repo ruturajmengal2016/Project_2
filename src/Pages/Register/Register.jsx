@@ -23,7 +23,7 @@ const Register = () => {
       onSubmit={async (e) => {
         e.preventDefault();
         await axios
-          .post("http://localhost:5500/api/create", details)
+          .post("https://twitterback.onrender.com/api/create", details)
           .then((res) => alert(res.data))
           .then(() => localStorage.setItem("users", JSON.stringify(details)))
           .then(() => {
