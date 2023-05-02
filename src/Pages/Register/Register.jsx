@@ -13,7 +13,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    phone: "",
+    phone:0,
     DOB: "",
   });
   return (
@@ -61,7 +61,7 @@ const Register = () => {
       <TextField
         label="Phone"
         name="phone"
-        type="text"
+        type="number"
         variant="outlined"
         onChange={(e) => {
           setDetails({ ...details, [e.target.name]: e.target.value });
