@@ -6,7 +6,7 @@ function App() {
   const navigate = useNavigate();
   const users = getUsers();
   useEffect(() => {
-    if (users.email) {
+    if (users && users.email) {
       navigate("/home");
     } else {
       navigate("/");
