@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { ImAppleinc } from "react-icons/im";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Style from "./LoginPage.module.scss";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -10,44 +10,49 @@ import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 import { getUsers } from "../../utils/localstorage";
 const Login = () => {
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
-  const [error,setError] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const localdata = getUsers()
+  const localdata = getUsers();
   const handleClose = () => {
     setOpen(false);
     navigate("/");
   };
   function handleSubmit(e) {
     e.preventDefault();
-    if(details.email==="" && details.password===""){
+    if (details.email === "" && details.password === "") {
       setError("Enter your email and password");
       return;
-    }
-    else if(details.email==="" && details.password!==""){
+    } else if (details.email === "" && details.password !== "") {
       setError("Enter your email first");
       return;
-    }
-    else if(details.email!=="" && details.password===""){
+    } else if (details.email !== "" && details.password === "") {
       setError("Enter your password first");
       return;
     }
-    localdata.forEach((ele) => {
-      if (ele.email === details.email && ele.password === details.password) {
-        navigate("/home");
-      } else if(ele.email !== details.email && ele.password === details.password) {
-        setError("Invalid User!!!");
-      }
-      else if(ele.email === details.email && ele.password !== details.password){
-        setError("Wrong password!!!")
-      }
-    });
+
+    if (
+      localdata.email === details.email &&
+      localdata.password === details.password
+    ) {
+      navigate("/home");
+    } else if (
+      localdata.email !== details.email &&
+      localdata.password === details.password
+    ) {
+      setError("Invalid User!!!");
+    } else if (
+      localdata.email === details.email &&
+      localdata.password !== details.password
+    ) {
+      setError("Wrong password!!!");
+    }
   }
   return (
     <div>
@@ -134,7 +139,7 @@ const Login = () => {
                 alignSelf: "center",
               }}
             />
-            {error &&  <Alert severity="error">{error}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
             <Button
               type="submit"
               variant="contained"
@@ -169,7 +174,7 @@ const Login = () => {
               }}
             >
               Don't have an account?{" "}
-              <Link to ={"/register"} underline="none">
+              <Link to={"/register"} underline="none">
                 Sign up
               </Link>
             </div>
