@@ -4,11 +4,11 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import joi from "joi";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
+  const navigate = useNavigate();
   const [details, setDetails] = React.useState({
     name: "",
     email: "",
@@ -16,9 +16,22 @@ const Register = () => {
     phone: "",
     DOB: "",
   });
-  const navigate = useNavigate();
   return (
-    <form className={Style.root}>
+    <form
+      method="post"
+      className={Style.root}
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await axios
+          .post("https://twitterback.onrender.com/api/create", details)
+          .then((res) => alert(res.data))
+          .then(() => localStorage.setItem("users", JSON.stringify(details)))
+          .then(() => {
+            navigate("/login");
+          })
+          .catch((error) => alert(error.response.data));
+      }}
+    >
       <TextField
         label="Name"
         name="name"
@@ -76,52 +89,12 @@ const Register = () => {
         sx={{
           textTransform: "none",
         }}
-        onClick={(e) => {
-          e.preventDefault();
-          validation(details, navigate);
-        }}
       >
         Next
       </Button>
       <ToastContainer />
     </form>
   );
-};
-
-const validation = (data, navigate) => {
-  const notify = () => toast.error("Something went wrong!");
-  const schema = joi.object({
-    name: joi.string().min(1).max(30).required(),
-    email: joi
-      .string()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
-      .required(),
-    password: joi.string().required(),
-    phone: joi.number().min(10).required(),
-    DOB: joi.date().required(),
-  });
-  schema
-    .validateAsync(data)
-    .then((res) => {
-      const user = JSON.parse(localStorage.getItem("users"));
-      if (user !== null) {
-        user.forEach((element) => {
-          if (element.email === data.email) {
-            alert("This email is already registered!");
-            return -1;
-          }
-        });
-      }
-    })
-    .then(async (res) => {
-      const value = [data];
-      localStorage.setItem("users", JSON.stringify([...value]));
-      await axios.post("https://twitterback.onrender.com/api/create",data);
-      navigate("/login");
-    })
-    .catch((err) => {
-      notify()
-    });
 };
 
 export default Register;

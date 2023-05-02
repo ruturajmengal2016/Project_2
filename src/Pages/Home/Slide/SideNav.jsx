@@ -166,9 +166,9 @@ export default function SideNav() {
           <BadgeAvatars />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ display: "flex", gap: "1rem" }}>
-              {getName[0].name} <BasicMenu />
+              {getName.name} <BasicMenu />
             </span>
-            <span>@{getName[0].name}</span>
+            <span>@{getName.name}</span>
           </div>
         </div>
       )}

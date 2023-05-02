@@ -8,7 +8,7 @@ export const tweetSlice = createSlice({
   reducers: {
     tweetData: (state, action) => {
       state.data = action.payload.data;
-    },
+    }
   },
 });
 
