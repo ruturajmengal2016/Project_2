@@ -1,12 +1,13 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Style from "./App.module.scss";
 import { useEffect } from "react";
-import { getUsers } from "./utils/localstorage";
 function App() {
   const navigate = useNavigate();
-  const users = getUsers();
   useEffect(() => {
-    if (users && users.email) {
+    if (
+      localStorage.getItem("login") &&
+      JSON.parse(localStorage.getItem("login"))
+    ) {
       navigate("/home");
     } else {
       navigate("/");

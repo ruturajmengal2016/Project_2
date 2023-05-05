@@ -5,15 +5,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   const navigate = useNavigate();
   const [details, setDetails] = React.useState({
     name: "",
     email: "",
     password: "",
-    phone:0,
+    phone: 0,
     DOB: "",
   });
   return (
@@ -92,7 +90,6 @@ const Register = () => {
       >
         Next
       </Button>
-      <ToastContainer />
     </form>
   );
 };

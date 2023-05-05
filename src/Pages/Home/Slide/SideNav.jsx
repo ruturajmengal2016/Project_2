@@ -1,213 +1,255 @@
-import React from "react";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import HouseIcon from "@mui/icons-material/House";
-import Grid3x3Icon from "@mui/icons-material/Grid3x3";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import MessageIcon from "@mui/icons-material/Message";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import HomeIcon from "@mui/icons-material/Home";
+import TagIcon from "@mui/icons-material/Tag";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import MailIcon from "@mui/icons-material/Mail";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import ContactsIcon from "@mui/icons-material/Contacts";
+import PersonIcon from "@mui/icons-material/Person";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import Button from "@mui/material/Button";
-import style from "./SideNav.module.scss";
-import Dialog from "@mui/material/Dialog";
-import Slide from "@mui/material/Slide";
-import CloseIcon from "@mui/icons-material/Close";
-import { TweetProfile } from "../../../Components/TweetProfile";
-import BadgeAvatars from "../../../Components/StyleBadged";
-import { getUsers } from "../../../utils/localstorage";
-import { useNavigate } from "react-router-dom";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
-
-export default function SideNav() {
-  const getName = getUsers();
-  const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate();
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const data = [
-    {
-      icon: <HouseIcon />,
-      name: "Home",
-    },
-    {
-      icon: <Grid3x3Icon />,
-      name: "Explore",
-    },
-    {
-      icon: <NotificationsNoneIcon />,
-      name: "Notification",
-    },
-    {
-      icon: <MessageIcon />,
-      name: "Messages",
-    },
-    {
-      icon: <BookmarkBorderIcon />,
-      name: "Bookmarks",
-    },
-    {
-      icon: <TwitterIcon />,
-      name: "Twitter Blue",
-    },
-    {
-      icon: <ContactsIcon />,
-      name: "Profile",
-    },
-    {
-      icon: <MoreHorizIcon />,
-      name: "More",
-    },
-  ];
-
+import TwitterIcon from "@mui/icons-material/Twitter";
+import Typography from "@mui/material/Typography";
+export default function Navbar() {
   return (
-    <div className={style.root}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <div>
-          <TwitterIcon sx={{ color: "#42a5f5", fontSize: "2rem" }} />
-        </div>
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}
-        >
-          {data.map((ele, index) => {
-            return (
-              <div key={index}>
-                <span>
-                  {" "}
-                  <Button
-                    className={style.navContent}
-                    sx={{
-                      borderRadius: 10,
-                      color: "black",
-                      textTransform: "none",
-                      gap: 3,
-                      "&:hover": {
-                        backgroundColor: "rgb(231, 233, 234)",
-                        opacity: [0.9, 0.8, 0.7],
-                      },
-                      fontSize: "1.5rem",
-                      fontWeight: 550,
-                    }}
-                  >
-                    {" "}
-                    {ele.icon} {ele.name}
-                  </Button>
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        <Button
-          variant="contained"
-          onClick={handleClickOpen}
+    <Box
+      sx={{
+        padding: "1rem 0rem",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        maxHeight: "fit-content",
+        justifyContent: "flex-start",
+        alignItems: "center"
+      }}
+    >
+      <Typography component="div">
+        <TwitterIcon
           sx={{
-            textTransform: "none",
-            borderRadius: "5rem",
-            width: "100%",
-            backgroundColor: "#42a5f5",
-            "&:hover": {
-              backgroundColor: "#42a5f5",
-            },
+            fontSize: "2rem",
+            color: "primary.main",
           }}
-        >
-          Tweet
-        </Button>
-        <Dialog
-          open={open}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleClose}
-          aria-describedby="alert-dialog-slide-description"
-          PaperProps={{
-            sx: {
-              width: "50%",
-              height: "fit-content",
-              padding: "1rem",
-              borderRadius: "1rem",
-            },
-          }}
-        >
-          <div style={{ display: "flex" }}>
-            <div>
-              <Button onClick={handleClose}>
-                <CloseIcon />
-              </Button>
-            </div>
-            <div style={{ width: "100%" }}>
-              <TweetProfile closetweet={handleClose} />
-            </div>
-          </div>
-        </Dialog>
-      </div>
-      {getName && (
-        <div
-          style={{ display: "flex", gap: "1rem" }}
-          className={style.id}
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <BadgeAvatars />
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ display: "flex", gap: "1rem" }}>
-              {getName.name} <BasicMenu />
-            </span>
-            <span>@{getName.name}</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function BasicMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
+        />
+      </Typography>
+      <Typography
+        component="div"
+        sx={{
+          boxSizing: "border-box",
+          padding: "1rem",
+          borderRadius: "5rem",
+          display: "flex",
+          gap: "1rem",
+          "&:hover": {
+            bgcolor: "lightgray",
+          },
         }}
       >
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </div>
+        <HomeIcon
+          sx={{
+            fontSize: "2rem",
+          }}
+        />
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
+          Home
+        </Typography>
+      </Typography>
+
+      <Typography
+        component="div"
+        sx={{
+          boxSizing: "border-box",
+          padding: "1rem",
+          borderRadius: "5rem",
+          display: "flex",
+          gap: "1rem",
+          "&:hover": {
+            bgcolor: "lightgray",
+          },
+        }}
+      >
+        <TagIcon
+          sx={{
+            fontSize: "2rem",
+          }}
+        />{" "}
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
+          Explore
+        </Typography>
+      </Typography>
+      <Typography
+        component="div"
+        sx={{
+          boxSizing: "border-box",
+          padding: "1rem",
+          borderRadius: "5rem",
+          display: "flex",
+          gap: "1rem",
+          "&:hover": {
+            bgcolor: "lightgray",
+          },
+        }}
+      >
+        <NotificationsActiveIcon
+          sx={{
+            fontSize: "2rem",
+          }}
+        />{" "}
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
+          Notifications
+        </Typography>
+      </Typography>
+      <Typography
+        component="div"
+        sx={{
+          boxSizing: "border-box",
+          padding: "1rem",
+          borderRadius: "5rem",
+          display: "flex",
+          gap: "1rem",
+          "&:hover": {
+            bgcolor: "lightgray",
+          },
+        }}
+      >
+        <MailIcon
+          sx={{
+            fontSize: "2rem",
+          }}
+        />{" "}
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
+          Messages
+        </Typography>
+      </Typography>
+      <Typography
+        component="div"
+        sx={{
+          boxSizing: "border-box",
+          padding: "1rem",
+          borderRadius: "5rem",
+          display: "flex",
+          gap: "1rem",
+          "&:hover": {
+            bgcolor: "lightgray",
+          },
+        }}
+      >
+        <BookmarkBorderIcon
+          sx={{
+            fontSize: "2rem",
+          }}
+        />{" "}
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
+          Bookmarks
+        </Typography>
+      </Typography>
+      <Typography
+        component="div"
+        sx={{
+          boxSizing: "border-box",
+          padding: "1rem",
+          borderRadius: "5rem",
+          display: "flex",
+          gap: "1rem",
+          "&:hover": {
+            bgcolor: "lightgray",
+          },
+        }}
+      >
+        <PersonIcon
+          sx={{
+            fontSize: "2rem",
+          }}
+        />{" "}
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
+          Profile
+        </Typography>
+      </Typography>
+      <Typography
+        component="div"
+        sx={{
+          boxSizing: "border-box",
+          padding: "1rem",
+          borderRadius: "5rem",
+          display: "flex",
+          gap: "1rem",
+          "&:hover": {
+            bgcolor: "lightgray",
+          },
+        }}
+      >
+        <MoreHorizIcon
+          sx={{
+            fontSize: "2rem",
+            borderRadius: "100%",
+            border: "2px solid black",
+          }}
+        />{" "}
+        <Typography
+          component="div"
+          variant="h5"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
+          More
+        </Typography>
+      </Typography>
+    </Box>
   );
 }

@@ -10,50 +10,18 @@ import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import { getUsers } from "../../utils/localstorage";
+import axios from "axios";
 const Login = () => {
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const localdata = getUsers();
   const handleClose = () => {
     setOpen(false);
     navigate("/");
   };
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (details.email === "" && details.password === "") {
-      setError("Enter your email and password");
-      return;
-    } else if (details.email === "" && details.password !== "") {
-      setError("Enter your email first");
-      return;
-    } else if (details.email !== "" && details.password === "") {
-      setError("Enter your password first");
-      return;
-    }
-
-    if (
-      localdata.email === details.email &&
-      localdata.password === details.password
-    ) {
-      navigate("/home");
-    } else if (
-      localdata.email !== details.email &&
-      localdata.password === details.password
-    ) {
-      setError("Invalid User!!!");
-    } else if (
-      localdata.email === details.email &&
-      localdata.password !== details.password
-    ) {
-      setError("Wrong password!!!");
-    }
-  }
   return (
     <div>
       <Dialog
@@ -77,7 +45,19 @@ const Login = () => {
           </Button>
         </DialogActions>
         <DialogContent>
-          <form className={Style.root}>
+          <form
+            className={Style.root}
+            onSubmit={(e) => {
+              e.preventDefault();
+              axios
+                .post("https://twitterback.onrender.com/api/login", details)
+                .then((res) => localStorage.setItem("login", res.data))
+                .then(() => {
+                  navigate("/home");
+                })
+                .catch((err) => alert(err.response.data));
+            }}
+          >
             <TwitterIcon
               sx={{ color: `#42a5f5`, fontSize: "2rem", alignSelf: "center" }}
             />
@@ -144,7 +124,6 @@ const Login = () => {
               type="submit"
               variant="contained"
               className={Style.submit}
-              onClick={handleSubmit}
               sx={{
                 width: "50%",
                 alignSelf: "center",
@@ -168,16 +147,6 @@ const Login = () => {
             >
               Forgot password
             </Button>
-            <div
-              style={{
-                alignSelf: "center",
-              }}
-            >
-              Don't have an account?{" "}
-              <Link to={"/register"} underline="none">
-                Sign up
-              </Link>
-            </div>
           </form>
         </DialogContent>
       </Dialog>
