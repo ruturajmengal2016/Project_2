@@ -6,8 +6,7 @@
   box-sizing: border-box;
 
   .left {
-    height: 100vh;
-    flex: 1;
+    flex: 0.5;
   }
   .middle {
     height: 100vh;
@@ -19,6 +18,18 @@
     }
   }
   .right {
+    display: none;
     flex: 1;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .root {
+    .left {
+      flex: 1;
+    }
+    .right {
+      display: flex;
+    }
   }
 }

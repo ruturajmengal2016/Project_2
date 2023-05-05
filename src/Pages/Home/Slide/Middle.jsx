@@ -29,11 +29,12 @@ import { AiFillHeart } from "react-icons/ai";
 import CloseIcon from "@mui/icons-material/Close";
 import CircularProgress from "@mui/material/CircularProgress";
 import imgs from "../../../utils/profile.png";
-
 const Middle = () => {
+  const selector = useSelector((state) => state.tweet.data);
+  const selector2 = useSelector((state) => state.tweeterUsers.data);
   return (
     <div className={Style.root}>
-      <BasicTabs title="Home" />
+      <BasicTabs title="Home" selector={selector} selector2={selector2} />
     </div>
   );
 };
@@ -179,7 +180,6 @@ const Profile = () => {
 //Table Panal
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -193,7 +193,7 @@ function TabPanel(props) {
           sx={{
             p: 0,
             height: "100vh",
-            overflow: "scroll",
+            overflow: localStorage.getItem("login") ? "scroll" : "hidden",
             "&::-webkit-scrollbar": {
               display: "none",
             },
@@ -220,14 +220,12 @@ function a11yProps(index) {
 }
 
 // Main Tab
-function BasicTabs({ title }) {
+function BasicTabs({ title, selector, selector2 }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const selector = useSelector((state) => state.tweet.data);
-  const selector2 = useSelector((state) => state.tweeterUsers.data);
   return (
     <Box
       sx={{
@@ -273,8 +271,6 @@ function BasicTabs({ title }) {
           }}
           TabIndicatorProps={{
             style: {
-              width: "50px",
-              translate: "9.5rem",
               height: "5px",
               borderRadius: "1rem",
             },
@@ -356,7 +352,9 @@ function TweetBox({
   reTweetCount,
 }) {
   const [open, setOpen] = React.useState(false);
-
+  const [like, setLike] = React.useState(false);
+  const [retweet, setreTweet] = React.useState(false);
+  // const [like, setLike] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -416,20 +414,28 @@ function TweetBox({
             name={tweetedBy.name}
             content={content}
           />
-          <span>
-            <FaRetweet size={30} />
-            &nbsp;<span>{reTweetCount}</span>
+          <span
+            onClick={() => {
+              setreTweet(!retweet);
+            }}
+          >
+            <FaRetweet size={30} color={retweet ? "green" : ""} />
+            &nbsp;<span>{retweet ? reTweetCount + 1 : reTweetCount}</span>
           </span>
-          <span>
-            {isLiked ? (
+          <span
+            onClick={() => {
+              setLike(!like);
+            }}
+          >
+            {like ? (
               <AiFillHeart size={25} fill="#e91e63" />
             ) : (
               <FavoriteBorderIcon />
             )}
-            &nbsp;<span>{likeCount}</span>
+            &nbsp;<span>{like ? likeCount + 1 : likeCount}</span>
           </span>
           <span>
-            <ViewKanbanIcon />
+            <ViewKanbanIcon /> <span>{commentCount * 2 + "k"}</span>
           </span>
           <span>
             <FiShare size={25} />
